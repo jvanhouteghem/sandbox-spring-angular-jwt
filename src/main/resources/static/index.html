@@ -1,0 +1,50 @@
+<!doctype html>
+<html ng-app="myApp">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>JSON Web Token / AngularJS / Spring Boot example</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <script src="node_modules/angular/angular.js"></script>
+    <script src="node_modules/jwt-decode/jwt-decode.min.js"></script>
+    <script src="app.js"></script>
+</head>
+<body>
+	<div class="container" ng-controller='MainCtrl'>
+		<h1>{{greeting}}</h1>
+		
+		<!-- Connection KO -->
+		<div ng-show="!loggedIn()">
+			Please log in (tom and sally are valid names)</br>
+			<form ng-submit="login()">
+				Username: <input type="text" ng-model="userLogin"/><span>
+				Password: <input type="text" ng-model="userPass"/><span>
+				<input type="submit" value="Login"/>
+			</form>
+		</div>
+		<div role="alert" ng-show="error.data.message">
+		  Error: {{error.data.message}}
+		</div>	
+		
+		<!-- Connection OK -->
+		<div ng-show="loggedIn()">
+			<div class="row">
+				<div>
+					<h3><span class="label label-success">Success!</span> Welcome {{userName}}</h3>
+		 			<a href ng-click="logout()">(logout)</a>
+				</div>
+			 	<div>
+					<div>
+					{{userName}} Role(s) : 
+					<span class="glyphicon glyphicon-ok" aria-hidden="true" ng-show="roleUser">User</span>
+					<span class="glyphicon glyphicon-ok" aria-hidden="true" ng-show="roleAdmin">Admin</span>
+					<span class="glyphicon glyphicon-ok" aria-hidden="true" ng-show="roleFoo">Foo</span>
+					</div>
+				</div>
+				<div>Token : {{token}}</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
